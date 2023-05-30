@@ -1445,7 +1445,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
               _context24.prev = 19;
               _context24.t0 = _context24["catch"](13);
             case 21:
-              if (product) {
+              if (!(!product && medusaId)) {
                 _context24.next = 30;
                 break;
               }

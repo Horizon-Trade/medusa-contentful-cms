@@ -860,7 +860,7 @@ class ContentfulService extends BaseService {
       });
     } catch (e) {}
 
-    if (!product)
+    if (!product && medusaId)
       try {
         product = await this.productService_.retrieve(medusaId, {
           select: toSelect,

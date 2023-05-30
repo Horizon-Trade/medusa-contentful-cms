@@ -11,7 +11,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var _default = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var contentfulService, contentfulType, entryId, medusaId, updated;
+    var _req$body$fields, _req$body$fields$medu, contentfulService, contentfulType, entryId, medusaId, updated;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -19,7 +19,7 @@ var _default = /*#__PURE__*/function () {
           contentfulService = req.scope.resolve("contentfulService");
           contentfulType = req.body.sys.contentType.sys.id;
           entryId = req.body.sys.id;
-          medusaId = req.body.fields.medusaId["en-US"];
+          medusaId = (_req$body$fields = req.body.fields) === null || _req$body$fields === void 0 ? void 0 : (_req$body$fields$medu = _req$body$fields.medusaId) === null || _req$body$fields$medu === void 0 ? void 0 : _req$body$fields$medu["en-US"];
           updated = {};
           _context.t0 = contentfulType;
           _context.next = _context.t0 === "product" ? 9 : _context.t0 === "productVariant" ? 13 : 17;

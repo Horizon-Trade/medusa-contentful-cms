@@ -4,7 +4,7 @@ export default async (req, res) => {
 
     const contentfulType = req.body.sys.contentType.sys.id;
     const entryId = req.body.sys.id;
-    const medusaId = req.body.fields.medusaId["en-US"];
+    const medusaId = req.body.fields?.medusaId?.["en-US"];
 
     let updated = {};
     switch (contentfulType) {

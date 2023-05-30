@@ -889,7 +889,7 @@ class ContentfulService extends BaseService {
 
     if (!product)
       throw new Error(
-        `Product with id: ${medusaId || productId} was not found`
+        `Product with id: ${medusaId || productId} was not found :(`
       );
 
     const update = {};

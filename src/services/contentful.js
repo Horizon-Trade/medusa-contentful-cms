@@ -868,23 +868,21 @@ class ContentfulService extends BaseService {
       } catch (e) {}
 
     if (!product) {
-      try {
-        product = await this.productService_.create({
-          title:
-            productEntry.fields[this.getCustomField("title", "product")]?.[
-              "en-US"
-            ],
-          metadata: { createdFromCMS: true },
-        });
-        const contentfulFields = {
-          [this.getCustomField("medusaId", "product")]: {
-            "en-US": product.id,
-          },
-        };
-        productEntry.fields = { ...productEntry.fields, ...contentfulFields };
-        const updatedEntry = await productEntry.update();
-        return await updatedEntry.publish();
-      } catch (e) {}
+      product = await this.productService_.create({
+        title:
+          productEntry.fields[this.getCustomField("title", "product")]?.[
+            "en-US"
+          ],
+        metadata: { createdFromCMS: true },
+      });
+      const contentfulFields = {
+        [this.getCustomField("medusaId", "product")]: {
+          "en-US": product.id,
+        },
+      };
+      productEntry.fields = { ...productEntry.fields, ...contentfulFields };
+      const updatedEntry = await productEntry.update();
+      return await updatedEntry.publish();
     }
 
     if (!product)

@@ -544,7 +544,9 @@ class ContentfulService extends BaseService {
     // check if product exists
     let productEntry = undefined;
     try {
-      productEntry = await environment.getEntry(data.id);
+      productEntry = await environment.getEntry(
+        data.metadata?.contentfulId || data.id
+      );
     } catch (error) {
       return this.createProductInContentful(p);
     }
@@ -877,7 +879,7 @@ class ContentfulService extends BaseService {
           productEntry.fields[this.getCustomField("title", "product")]?.[
             "en-US"
           ],
-        metadata: { createdFromCMS: true },
+        metadata: { createdFromCMS: true, contentfulId: productId },
         profile_id: (await this.shippingProfileService_.retrieveDefault()).id,
       });
       const contentfulFields = {

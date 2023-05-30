@@ -156,6 +156,8 @@ class ContentfulService extends BaseService {
       ],
     });
 
+    if (p.metadata.createdFromCMS === true) return;
+
     const environment = await this.getContentfulEnvironment_();
     const variantEntries = await this.getVariantEntries_(p.variants, {
       publish: true,
@@ -872,6 +874,7 @@ class ContentfulService extends BaseService {
             productEntry.fields[this.getCustomField("title", "product")]?.[
               "en-US"
             ],
+          metadata: { createdFromCMS: true },
         });
         const contentfulFields = {
           [this.getCustomField("medusaId", "product")]: {

@@ -315,15 +315,21 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
               });
             case 2:
               p = _context8.sent;
-              _context8.next = 5;
-              return this.getContentfulEnvironment_();
+              if (!(p.metadata.createdFromCMS === true)) {
+                _context8.next = 5;
+                break;
+              }
+              return _context8.abrupt("return");
             case 5:
+              _context8.next = 7;
+              return this.getContentfulEnvironment_();
+            case 7:
               environment = _context8.sent;
-              _context8.next = 8;
+              _context8.next = 10;
               return this.getVariantEntries_(p.variants, {
                 publish: true
               });
-            case 8:
+            case 10:
               variantEntries = _context8.sent;
               variantLinks = this.getVariantLinks_(variantEntries);
               fields = (_fields = {}, _defineProperty(_fields, this.getCustomField("title", "product"), {
@@ -340,24 +346,24 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
                 "en-US": p.id
               }), _fields);
               if (!(p.images.length > 0)) {
-                _context8.next = 16;
+                _context8.next = 18;
                 break;
               }
-              _context8.next = 14;
+              _context8.next = 16;
               return this.createImageAssets(product);
-            case 14:
+            case 16:
               imageLinks = _context8.sent;
               if (imageLinks) {
                 fields.images = {
                   "en-US": imageLinks
                 };
               }
-            case 16:
+            case 18:
               if (!p.thumbnail) {
-                _context8.next = 24;
+                _context8.next = 26;
                 break;
               }
-              _context8.next = 19;
+              _context8.next = 21;
               return environment.createAsset({
                 fields: {
                   title: {
@@ -375,13 +381,13 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
                   }
                 }
               });
-            case 19:
+            case 21:
               thumbnailAsset = _context8.sent;
-              _context8.next = 22;
+              _context8.next = 24;
               return thumbnailAsset.processForAllLocales().then(function (a) {
                 return a.publish();
               });
-            case 22:
+            case 24:
               thumbnailLink = {
                 sys: {
                   type: "Link",
@@ -392,18 +398,18 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
               fields.thumbnail = {
                 "en-US": thumbnailLink
               };
-            case 24:
-              _context8.next = 26;
-              return this.createSpecialProductFields(fields, p);
             case 26:
               _context8.next = 28;
+              return this.createSpecialProductFields(fields, p);
+            case 28:
+              _context8.next = 30;
               return environment.createEntryWithId("product", p.id, {
                 fields: fields
               });
-            case 28:
+            case 30:
               result = _context8.sent;
               return _context8.abrupt("return", result);
-            case 30:
+            case 32:
             case "end":
               return _context8.stop();
           }
@@ -1463,7 +1469,10 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
               _context24.prev = 31;
               _context24.next = 34;
               return this.productService_.create({
-                title: (_productEntry$fields$ = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$ === void 0 ? void 0 : _productEntry$fields$["en-US"]
+                title: (_productEntry$fields$ = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$ === void 0 ? void 0 : _productEntry$fields$["en-US"],
+                metadata: {
+                  createdFromCMS: true
+                }
               });
             case 34:
               product = _context24.sent;

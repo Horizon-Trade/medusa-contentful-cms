@@ -838,7 +838,7 @@ class ContentfulService extends BaseService {
     return archivedEntry;
   }
 
-  async sendContentfulProductToAdmin(productId, medusaId) {
+  async sendContentfulProductToAdmin(productId) {
     const ignore = await this.shouldIgnore_(productId, "medusa");
     if (ignore) {
       return;
@@ -863,13 +863,6 @@ class ContentfulService extends BaseService {
       });
     } catch (e) {}
 
-    if (!product && medusaId)
-      try {
-        product = await this.productService_.retrieve(medusaId, {
-          select: toSelect,
-        });
-      } catch (e) {}
-
     if (!product) {
       product = await this.productService_.create({
         title:
@@ -890,9 +883,7 @@ class ContentfulService extends BaseService {
     }
 
     if (!product)
-      throw new Error(
-        `Product with id: ${medusaId || productId} was not found :(`
-      );
+      throw new Error(`Product with id: ${productId} was not found :(`);
 
     const update = {};
 

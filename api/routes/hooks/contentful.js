@@ -26,13 +26,13 @@ var _default = /*#__PURE__*/function () {
           break;
         case 9:
           _context.next = 11;
-          return contentfulService.sendContentfulProductToAdmin(entryId, medusaId);
+          return contentfulService.sendContentfulProductToAdmin(medusaId || entryId);
         case 11:
           updated = _context.sent;
           return _context.abrupt("break", 18);
         case 13:
           _context.next = 15;
-          return contentfulService.sendContentfulProductVariantToAdmin(entryId);
+          return contentfulService.sendContentfulProductVariantToAdmin(medusaId || entryId);
         case 15:
           updated = _context.sent;
           return _context.abrupt("break", 18);

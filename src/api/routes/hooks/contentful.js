@@ -10,13 +10,12 @@ export default async (req, res) => {
     switch (contentfulType) {
       case "product":
         updated = await contentfulService.sendContentfulProductToAdmin(
-          entryId,
-          medusaId
+          medusaId || entryId
         );
         break;
       case "productVariant":
         updated = await contentfulService.sendContentfulProductVariantToAdmin(
-          entryId
+          medusaId || entryId
         );
         break;
       default:

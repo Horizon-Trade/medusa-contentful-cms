@@ -47,10 +47,12 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
       productVariantService = _ref.productVariantService,
       eventBusService = _ref.eventBusService,
       productVariantInventoryService = _ref.productVariantInventoryService,
-      featureFlagRouter = _ref.featureFlagRouter;
+      featureFlagRouter = _ref.featureFlagRouter,
+      shippingProfileService = _ref.shippingProfileService;
     _classCallCheck(this, ContentfulService);
     _this = _super.call(this);
     _this.productService_ = productService;
+    _this.shippingProfileService_ = shippingProfileService;
     _this.productVariantService_ = productVariantService;
     _this.regionService_ = regionService;
     _this.eventBus_ = eventBusService;
@@ -1463,38 +1465,46 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
               _context24.t1 = _context24["catch"](22);
             case 30:
               if (product) {
-                _context24.next = 42;
+                _context24.next = 49;
                 break;
               }
-              _context24.next = 33;
-              return this.productService_.create({
-                title: (_productEntry$fields$ = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$ === void 0 ? void 0 : _productEntry$fields$["en-US"],
-                metadata: {
-                  createdFromCMS: true
-                },
-                profile_id: "cms"
-              });
-            case 33:
+              _context24.t2 = this.productService_;
+              _context24.t3 = (_productEntry$fields$ = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$ === void 0 ? void 0 : _productEntry$fields$["en-US"];
+              _context24.t4 = {
+                createdFromCMS: true
+              };
+              _context24.next = 36;
+              return this.shippingProfileService_.retrieveDefault();
+            case 36:
+              _context24.t5 = _context24.sent.id;
+              _context24.t6 = {
+                title: _context24.t3,
+                metadata: _context24.t4,
+                profile_id: _context24.t5
+              };
+              _context24.next = 40;
+              return _context24.t2.create.call(_context24.t2, _context24.t6);
+            case 40:
               product = _context24.sent;
               contentfulFields = _defineProperty({}, this.getCustomField("medusaId", "product"), {
                 "en-US": product.id
               });
               productEntry.fields = _objectSpread(_objectSpread({}, productEntry.fields), contentfulFields);
-              _context24.next = 38;
+              _context24.next = 45;
               return productEntry.update();
-            case 38:
+            case 45:
               updatedEntry = _context24.sent;
-              _context24.next = 41;
+              _context24.next = 48;
               return updatedEntry.publish();
-            case 41:
+            case 48:
               return _context24.abrupt("return", _context24.sent);
-            case 42:
+            case 49:
               if (product) {
-                _context24.next = 44;
+                _context24.next = 51;
                 break;
               }
               throw new Error("Product with id: ".concat(medusaId || productId, " was not found :("));
-            case 44:
+            case 51:
               update = {};
               title = (_productEntry$fields$2 = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$2 === void 0 ? void 0 : _productEntry$fields$2["en-US"];
               subtitle = (_productEntry$fields$3 = productEntry.fields[this.getCustomField("subtitle", "product")]) === null || _productEntry$fields$3 === void 0 ? void 0 : _productEntry$fields$3["en-US"];
@@ -1515,24 +1525,24 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
 
               // Get the thumbnail, if present
               if (!productEntry.fields.thumbnail) {
-                _context24.next = 58;
+                _context24.next = 65;
                 break;
               }
-              _context24.next = 56;
+              _context24.next = 63;
               return environment.getAsset(productEntry.fields.thumbnail["en-US"].sys.id);
-            case 56:
+            case 63:
               thumb = _context24.sent;
               if (thumb.fields.file["en-US"].url) {
                 if (!((_product$thumbnail = product.thumbnail) !== null && _product$thumbnail !== void 0 && _product$thumbnail.includes(thumb.fields.file["en-US"].url))) {
                   update.thumbnail = thumb.fields.file["en-US"].url;
                 }
               }
-            case 58:
+            case 65:
               if (_lodash["default"].isEmpty(update)) {
-                _context24.next = 61;
+                _context24.next = 68;
                 break;
               }
-              _context24.next = 61;
+              _context24.next = 68;
               return this.productService_.update(productId, update).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23() {
                 return _regeneratorRuntime().wrap(function _callee23$(_context23) {
                   while (1) switch (_context23.prev = _context23.next) {
@@ -1547,7 +1557,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
                   }
                 }, _callee23);
               })));
-            case 61:
+            case 68:
             case "end":
               return _context24.stop();
           }

@@ -14,12 +14,15 @@ class ContentfulService extends BaseService {
       eventBusService,
       productVariantInventoryService,
       featureFlagRouter,
+      shippingProfileService,
     },
     options
   ) {
     super();
 
     this.productService_ = productService;
+
+    this.shippingProfileService_ = shippingProfileService;
 
     this.productVariantService_ = productVariantService;
 
@@ -874,7 +877,7 @@ class ContentfulService extends BaseService {
             "en-US"
           ],
         metadata: { createdFromCMS: true },
-        profile_id: "cms",
+        profile_id: (await this.shippingProfileService_.retrieveDefault()).id,
       });
       const contentfulFields = {
         [this.getCustomField("medusaId", "product")]: {

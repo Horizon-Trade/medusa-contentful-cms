@@ -874,6 +874,7 @@ class ContentfulService extends BaseService {
             "en-US"
           ],
         metadata: { createdFromCMS: true },
+        profile_id: "cms",
       });
       const contentfulFields = {
         [this.getCustomField("medusaId", "product")]: {

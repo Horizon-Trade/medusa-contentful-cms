@@ -1471,7 +1471,8 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
                 title: (_productEntry$fields$ = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$ === void 0 ? void 0 : _productEntry$fields$["en-US"],
                 metadata: {
                   createdFromCMS: true
-                }
+                },
+                profile_id: "cms"
               });
             case 33:
               product = _context24.sent;

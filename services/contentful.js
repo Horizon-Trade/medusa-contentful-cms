@@ -1496,7 +1496,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
                 _context24.next = 49;
                 break;
               }
-              throw new Error("Product with id: ".concat(medusaId || productId, " was not found"));
+              throw new Error("Product with id: ".concat(medusaId || productId, " was not found :("));
             case 49:
               update = {};
               title = (_productEntry$fields$2 = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$2 === void 0 ? void 0 : _productEntry$fields$2["en-US"];

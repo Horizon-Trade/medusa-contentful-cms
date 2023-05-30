@@ -545,7 +545,7 @@ class ContentfulService extends BaseService {
     let productEntry = undefined;
     try {
       productEntry = await environment.getEntry(
-        data.metadata?.contentfulId || data.id
+        p.metadata?.contentfulId || data.id
       );
     } catch (error) {
       return this.createProductInContentful(p);

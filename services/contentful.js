@@ -869,7 +869,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
     value: function () {
       var _updateProductInContentful = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(data) {
         var _objectSpread5;
-        var updateFields, found, ignore, p, environment, productEntry, _data$metadata, variantEntries, variantLinks, productEntryFields, url, thumbnailAsset, thumbnailLink, updatedEntry, publishedEntry;
+        var updateFields, found, ignore, p, environment, productEntry, _p$metadata, variantEntries, variantLinks, productEntryFields, url, thumbnailAsset, thumbnailLink, updatedEntry, publishedEntry;
         return _regeneratorRuntime().wrap(function _callee16$(_context16) {
           while (1) switch (_context16.prev = _context16.next) {
             case 0:
@@ -907,7 +907,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
               productEntry = undefined;
               _context16.prev = 16;
               _context16.next = 19;
-              return environment.getEntry(((_data$metadata = data.metadata) === null || _data$metadata === void 0 ? void 0 : _data$metadata.contentfulId) || data.id);
+              return environment.getEntry(((_p$metadata = p.metadata) === null || _p$metadata === void 0 ? void 0 : _p$metadata.contentfulId) || data.id);
             case 19:
               productEntry = _context16.sent;
               _context16.next = 25;

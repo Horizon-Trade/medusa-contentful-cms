@@ -1404,90 +1404,108 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
   }, {
     key: "sendContentfulProductToAdmin",
     value: function () {
-      var _sendContentfulProductToAdmin = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee24(productId) {
+      var _sendContentfulProductToAdmin = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee24(productId, medusaId) {
         var _productEntry$fields$2,
           _productEntry$fields$3,
           _productEntry$fields$4,
           _productEntry$fields$5,
           _this4 = this;
-        var ignore, environment, productEntry, toSelect, product, _productEntry$fields$, contentfulFields, updatedEntry, update, title, subtitle, description, handle, thumb, _product$thumbnail;
+        var mainId, ignore, environment, productEntry, toSelect, product, _productEntry$fields$, contentfulFields, updatedEntry, update, title, subtitle, description, handle, thumb, _product$thumbnail;
         return _regeneratorRuntime().wrap(function _callee24$(_context24) {
           while (1) switch (_context24.prev = _context24.next) {
             case 0:
-              _context24.next = 2;
-              return this.shouldIgnore_(productId, "medusa");
-            case 2:
+              mainId = medusaId || productId;
+              _context24.next = 3;
+              return this.shouldIgnore_(mainId, "medusa");
+            case 3:
               ignore = _context24.sent;
               if (!ignore) {
-                _context24.next = 5;
+                _context24.next = 6;
                 break;
               }
               return _context24.abrupt("return");
-            case 5:
-              _context24.next = 7;
+            case 6:
+              _context24.next = 8;
               return this.getContentfulEnvironment_();
-            case 7:
+            case 8:
               environment = _context24.sent;
-              _context24.next = 10;
+              _context24.next = 11;
               return environment.getEntry(productId);
-            case 10:
+            case 11:
               productEntry = _context24.sent;
               toSelect = ["id", "handle", "title", "subtitle", "description", "thumbnail"];
               product = null;
-              _context24.prev = 13;
-              _context24.next = 16;
+              _context24.prev = 14;
+              _context24.next = 17;
               return this.productService_.retrieve(productId, {
                 select: toSelect
               });
-            case 16:
+            case 17:
               product = _context24.sent;
-              _context24.next = 21;
+              _context24.next = 22;
               break;
-            case 19:
-              _context24.prev = 19;
-              _context24.t0 = _context24["catch"](13);
-            case 21:
-              if (product) {
-                _context24.next = 40;
+            case 20:
+              _context24.prev = 20;
+              _context24.t0 = _context24["catch"](14);
+            case 22:
+              if (!(!product && medusaId)) {
+                _context24.next = 31;
                 break;
               }
-              _context24.t1 = this.productService_;
-              _context24.t2 = (_productEntry$fields$ = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$ === void 0 ? void 0 : _productEntry$fields$["en-US"];
-              _context24.t3 = {
+              _context24.prev = 23;
+              _context24.next = 26;
+              return this.productService_.retrieve(medusaId, {
+                select: toSelect
+              });
+            case 26:
+              product = _context24.sent;
+              _context24.next = 31;
+              break;
+            case 29:
+              _context24.prev = 29;
+              _context24.t1 = _context24["catch"](23);
+            case 31:
+              if (product) {
+                _context24.next = 50;
+                break;
+              }
+              _context24.t2 = this.productService_;
+              _context24.t3 = (_productEntry$fields$ = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$ === void 0 ? void 0 : _productEntry$fields$["en-US"];
+              _context24.t4 = {
                 createdFromCMS: true
               };
-              _context24.next = 27;
+              _context24.next = 37;
               return this.shippingProfileService_.retrieveDefault();
-            case 27:
-              _context24.t4 = _context24.sent.id;
-              _context24.t5 = {
-                title: _context24.t2,
-                metadata: _context24.t3,
-                profile_id: _context24.t4
+            case 37:
+              _context24.t5 = _context24.sent.id;
+              _context24.t6 = {
+                title: _context24.t3,
+                metadata: _context24.t4,
+                profile_id: _context24.t5
               };
-              _context24.next = 31;
-              return _context24.t1.create.call(_context24.t1, _context24.t5);
-            case 31:
+              _context24.next = 41;
+              return _context24.t2.create.call(_context24.t2, _context24.t6);
+            case 41:
               product = _context24.sent;
               contentfulFields = _defineProperty({}, this.getCustomField("medusaId", "product"), {
                 "en-US": product.id
               });
               productEntry.fields = _objectSpread(_objectSpread({}, productEntry.fields), contentfulFields);
-              _context24.next = 36;
+              _context24.next = 46;
               return productEntry.update();
-            case 36:
+            case 46:
               updatedEntry = _context24.sent;
-              _context24.next = 39;
+              _context24.next = 49;
               return updatedEntry.publish();
-            case 39:
+            case 49:
               return _context24.abrupt("return", _context24.sent);
-            case 40:
+            case 50:
               if (product) {
-                _context24.next = 42;
+                _context24.next = 52;
                 break;
               }
-              throw new Error("Product with id: ".concat(productId, " was not found :("));
-            case 42:
+              throw new Error("Product with id: ".concat(medusaId || productId, " was not found :("));
+            case 52:
               update = {};
               title = (_productEntry$fields$2 = productEntry.fields[this.getCustomField("title", "product")]) === null || _productEntry$fields$2 === void 0 ? void 0 : _productEntry$fields$2["en-US"];
               subtitle = (_productEntry$fields$3 = productEntry.fields[this.getCustomField("subtitle", "product")]) === null || _productEntry$fields$3 === void 0 ? void 0 : _productEntry$fields$3["en-US"];
@@ -1508,30 +1526,30 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
 
               // Get the thumbnail, if present
               if (!productEntry.fields.thumbnail) {
-                _context24.next = 56;
+                _context24.next = 66;
                 break;
               }
-              _context24.next = 54;
+              _context24.next = 64;
               return environment.getAsset(productEntry.fields.thumbnail["en-US"].sys.id);
-            case 54:
+            case 64:
               thumb = _context24.sent;
               if (thumb.fields.file["en-US"].url) {
                 if (!((_product$thumbnail = product.thumbnail) !== null && _product$thumbnail !== void 0 && _product$thumbnail.includes(thumb.fields.file["en-US"].url))) {
                   update.thumbnail = thumb.fields.file["en-US"].url;
                 }
               }
-            case 56:
+            case 66:
               if (_lodash["default"].isEmpty(update)) {
-                _context24.next = 59;
+                _context24.next = 69;
                 break;
               }
-              _context24.next = 59;
-              return this.productService_.update(productId, update).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23() {
+              _context24.next = 69;
+              return this.productService_.update(mainId, update).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23() {
                 return _regeneratorRuntime().wrap(function _callee23$(_context23) {
                   while (1) switch (_context23.prev = _context23.next) {
                     case 0:
                       _context23.next = 2;
-                      return _this4.addIgnore_(productId, "contentful");
+                      return _this4.addIgnore_(mainId, "contentful");
                     case 2:
                       return _context23.abrupt("return", _context23.sent);
                     case 3:
@@ -1540,13 +1558,13 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
                   }
                 }, _callee23);
               })));
-            case 59:
+            case 69:
             case "end":
               return _context24.stop();
           }
-        }, _callee24, this, [[13, 19]]);
+        }, _callee24, this, [[14, 20], [23, 29]]);
       }));
-      function sendContentfulProductToAdmin(_x26) {
+      function sendContentfulProductToAdmin(_x26, _x27) {
         return _sendContentfulProductToAdmin.apply(this, arguments);
       }
       return sendContentfulProductToAdmin;
@@ -1601,7 +1619,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
           }
         }, _callee26, this);
       }));
-      function sendContentfulProductVariantToAdmin(_x27) {
+      function sendContentfulProductVariantToAdmin(_x28) {
         return _sendContentfulProductVariantToAdmin.apply(this, arguments);
       }
       return sendContentfulProductVariantToAdmin;
@@ -1654,7 +1672,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
           }
         }, _callee27, this);
       }));
-      function getType(_x28) {
+      function getType(_x29) {
         return _getType.apply(this, arguments);
       }
       return getType;
@@ -1679,7 +1697,7 @@ var ContentfulService = /*#__PURE__*/function (_BaseService) {
           }
         }, _callee28, this);
       }));
-      function checkCapabilities(_x29) {
+      function checkCapabilities(_x30) {
         return _checkCapabilities.apply(this, arguments);
       }
       return checkCapabilities;
